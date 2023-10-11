@@ -1,6 +1,10 @@
 package org.example;
 
-public class LeagueEntry {
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+public class LeagueEntry implements Comparable<LeagueEntry> {
    //	Create a class “LeagueEntry” to represent an entry in the premier league table. Each entry should include the following fields:
     //	Name
     //	Games played
@@ -13,7 +17,8 @@ public class LeagueEntry {
     private int gamesWon;
     private int gamesLost;
     private int gamesDrew;
-    private double totalPoints;
+    private int totalPoints;
+    private int gamesPlayed;
 
     // 	You should also implement the following in your class:
     //	Full and default constructors
@@ -24,15 +29,24 @@ public class LeagueEntry {
     public LeagueEntry() {
     }
 
-    public LeagueEntry(String name, int gamesWon, int gamesLost, int gamesDrew, double totalPoints) {
+    public LeagueEntry(String name, int gamesWon, int gamesLost, int gamesDrew, int totalPoints, int gamesPlayed) {
         this.name = name;
         this.gamesWon = gamesWon;
         this.gamesLost = gamesLost;
         this.gamesDrew = gamesDrew;
+        this.gamesPlayed = gamesPlayed;
         this.totalPoints = totalPoints;
     }
     //	Getters and setters
 
+
+    public int getGamesPlayed() {
+        return gamesPlayed;
+    }
+
+    public void setGamesPlayed(int gamesPlayed) {
+        this.gamesPlayed = gamesPlayed;
+    }
 
     public String getName() {
         return name;
@@ -66,11 +80,11 @@ public class LeagueEntry {
         this.gamesDrew = gamesDrew;
     }
 
-    public double getTotalPoints() {
+    public int getTotalPoints() {
         return totalPoints;
     }
 
-    public void setTotalPoints(double totalPoints) {
+    public void setTotalPoints(int totalPoints) {
         this.totalPoints = totalPoints;
     }
     //	toString method
@@ -84,6 +98,26 @@ public class LeagueEntry {
                 ", gamesLost=" + gamesLost +
                 ", gamesDrew=" + gamesDrew +
                 ", totalPoints=" + totalPoints +
+                ", gamesPlayed=" + gamesPlayed +
                 '}';
     }
+
+    @Override
+    public int compareTo(LeagueEntry other) {
+        if(this.totalPoints != other.totalPoints){
+            return other.totalPoints - this.totalPoints;
+        }
+        else if(this.gamesWon != other.gamesWon){
+            return other.gamesWon - this.gamesWon;
+        }
+        else if(this.name != other.name){
+            return this.name.compareTo(other.name);
+        }
+        return 0;
+    }
+//    @Override
+//    public int compareTo(LeagueEntry o) {
+//        return this.name.compareTo(o.name);
+//    }
+
 }
